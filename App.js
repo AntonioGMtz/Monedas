@@ -5,10 +5,12 @@ import React from 'react';
 import {
   
   StyleSheet,
-  Image
+  Image,
+  View
 } from 'react-native';
 
 import Header from './components/Header'
+import Formulario from './components/Formulario'
 
 const App = () => {
   return (
@@ -17,13 +19,27 @@ const App = () => {
       <Image
         style = {styles.imagen}
         source={ require('./assets/img/moneda.png')}
-        />
+      />
+
+      <View style={styles.contenido}>
+      <Formulario/>
+      </View>
+      
     </>
   );
 };
 
 
 const styles = StyleSheet.create({
+  imagen:{
+    width: '100%',
+    height: 300,
+    marginHorizontal : '2.5%'
+  },
+  contenido:{
+    marginHorizontal: '4.5%'
+
+  }
  
 });
 
