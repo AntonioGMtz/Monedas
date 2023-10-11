@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import {Text , View , StyleSheet} from 'react-native';
+import {Text , View , StyleSheet , TouchableHighlight} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import axios from 'axios';
 
@@ -12,7 +12,7 @@ const Formulario = () => {
 
     useEffect(() => {
         const consultarAPI = async () => {
-            const  url='https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD';
+            const url='https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD';
             const resultado = await axios.get(url);
             guardarCriptomonedas(resultado.data.Data);
 
@@ -22,16 +22,18 @@ const Formulario = () => {
 
     },[]);
 
-const obtenerMoneda = moneda =>{
-    guardarMoneda(moneda)
-}
-const obtenerCriptomoneda = cripto =>{
-    guardarCriptomoneda(cripto)
-}
+    const obtenerMoneda = moneda =>{
+        guardarMoneda(moneda);
+        }
+    const obtenerCriptomoneda = cripto =>{
+        guardarCriptomoneda(cripto);
+    }
+
+
 
     return(
         <View>
-            <Text style={styles.label}>Monedad</Text>
+            <Text style={styles.label}>Moneda</Text>
 
             <Picker
                 selectedValue={moneda}
@@ -53,13 +55,20 @@ const obtenerCriptomoneda = cripto =>{
                 onValueChange={cripto => obtenerCriptomoneda(cripto)}
                 itemStyle={{height:120}}
             >
-                <Picker.Item label="- Seleccione -" value="" />
+                <Picker.Item label="- Selecciones -" value="" />
                 {criptomonedas.map(cripto=>(
                     <Picker.Item key={cripto.CoinInfo.Id} label= {cripto.CoinInfo.FullName} value={cripto.CoinInfo.Name} />
 
                 ))}
                
             </Picker>
+
+            <TouchableHighlight
+                style={styles.btnCotizar}
+                onPres = {() => cotizarPrecio}
+             >
+                <Text style={styles.textoCotizar}>Cotizar</Text>
+            </TouchableHighlight>
 
 
         </View>
@@ -71,6 +80,20 @@ const styles = StyleSheet.create({
         textTransform:'uppercase',
         fontSize:22,
         marginVertical:20,
+    },
+    btnCotizar:{
+        backgroundColor: '#5E49E2',
+        padding: 10,
+        marginTop: 20
+
+    },
+    textoCotizar:{
+        color: '#FFF',
+        fontSize: 18,
+        fontFamily: 'Lato-Black',
+        textTransform: 'uppercase',
+        textAlign: 'center'
+
     }
 });
 
