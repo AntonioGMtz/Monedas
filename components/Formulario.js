@@ -1,13 +1,11 @@
 import React,{useState, useEffect} from 'react';
-import {Text , View , StyleSheet , TouchableHighlight} from 'react-native';
+import {Text , View , StyleSheet , TouchableHighlight, Alert} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import axios from 'axios';
 
 
-const Formulario = () => {
-    
-    const [moneda, guardarMoneda] = useState('');
-    const [criptomoneda, guardarCriptomoneda] = useState('');
+const Formulario = ({moneda, criptomoneda, guardarMoneda, guardarCriptomoneda, guardarConsultarAPI}) => {
+  
     const [ criptomonedas, guardarCriptomonedas ] = useState([]);
 
     useEffect(() => {
@@ -27,6 +25,25 @@ const Formulario = () => {
         }
     const obtenerCriptomoneda = cripto =>{
         guardarCriptomoneda(cripto);
+    }
+    const cotizarPrecio = () =>{
+        if(moneda.trim() === '' || criptomoneda.trim() === ''){
+            mostrarAlerta();
+            return;
+        }
+
+        //Cambiar el estado
+        guardarConsultarAPI(true);
+
+    }
+    const mostrarAlerta = () => {
+        Alert.alert(
+            'Error...',
+            'Ambos campos son obligatorios',
+            [
+                {text: 'OK'}
+            ]
+        )
     }
 
 
@@ -65,7 +82,7 @@ const Formulario = () => {
 
             <TouchableHighlight
                 style={styles.btnCotizar}
-                onPres = {() => cotizarPrecio}
+                onPress = {() => cotizarPrecio()}
              >
                 <Text style={styles.textoCotizar}>Cotizar</Text>
             </TouchableHighlight>
@@ -84,7 +101,7 @@ const styles = StyleSheet.create({
     btnCotizar:{
         backgroundColor: '#5E49E2',
         padding: 10,
-        marginTop: 20
+        marginTop: 20,
 
     },
     textoCotizar:{

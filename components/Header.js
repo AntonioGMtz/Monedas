@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, StyleSheet, Platform} from 'react-native';
 
 const Header = () => (
-    <Text style = {styles.encabezado}>Coches</Text>
+    <Text style = {styles.encabezado}>Criptomonedas</Text>
 );
 
 
