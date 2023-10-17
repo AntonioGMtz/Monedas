@@ -1,5 +1,5 @@
 import React , {useEffect, useState} from 'react';
-import {StyleSheet,Image,View} from 'react-native';
+import {StyleSheet,Image,View, ScrollView} from 'react-native';
 import axios from 'axios';
 import Header from './components/Header';
 import Formulario from './components/Formulario';
@@ -33,6 +33,7 @@ const App = () => {
 
   return (
     <>
+    <ScrollView>
       <Header/>
       <Image
         style = {styles.imagen}
@@ -48,11 +49,13 @@ const App = () => {
         guardarConsultarAPI={guardarConsultarAPI}
       />
 
+      </View>
+
+      
       <Cotizacion
         resultado={resultado}
       />
-      </View>
-      
+      </ScrollView>
     </>
   );
 };
